@@ -8,16 +8,14 @@ import AvailablePlaces from './components/AvailablePlaces.jsx';
 import { updateUserPlaces } from './http.jsx';
 import ErrorPage from "./components/ErrorPage.jsx";
 import { fetchUserPlaces } from "./http.jsx";
+import { useFetch } from './hooks/useFetch.js';
 
 function App() {
   const selectedPlace = useRef();
-  const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState();
-  const [userPlaces, setUserPlaces] = useState([]);
   const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  useFetch();
+  const {isFetching, error, fetchedData: userPlaces} = useFetch(fetchUserPlaces, []);
 
   function handleStartRemovePlace(place) {
     setModalIsOpen(true);
